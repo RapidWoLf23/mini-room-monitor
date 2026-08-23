@@ -1,61 +1,81 @@
 # Mini Room Monitor
 
-A compact Arduino-based room monitoring system that measures temperature, humidity, and gas sensor values using multiple sensors and displays the readings on a MAX7219 LED matrix.
+A compact Arduino-based room monitoring system that measures **temperature, humidity, and gas sensor readings** and displays the collected information locally using an LED matrix display.
 
-The project also provides a local web dashboard for viewing the sensor readings in a more convenient interface. An AI model accessed through OpenRouter can be connected to the local dashboard to interpret and present the sensor data.
+The project combines simple environmental sensors with an Arduino UNO and a custom web dashboard. Sensor data can be viewed locally through the dashboard, while an AI model connected through **OpenRouter** can be used to interpret the collected readings.
 
 ---
 
 ## Introduction
 
-The Mini Room Monitor is a simple embedded-system project designed to monitor basic environmental conditions inside a room.
+The **Mini Room Monitor** is a low-cost environmental monitoring project built using an **Arduino UNO**, **DHT22**, **MQ-135 gas sensor**, and a **MAX7219 LED matrix display**.
 
-The system uses an Arduino Uno as the main controller and collects data from:
+The system continuously collects environmental data and provides a simple way to observe the conditions of a room.
 
-- DHT22 temperature and humidity sensor
-- MQ-135 gas sensor
-- MAX7219 8×8 LED matrix display
+The Arduino handles the sensor readings and local display, while a computer-based local server can receive the data and present it through a custom HTML dashboard.
 
-The sensor readings are processed by the Arduino and displayed locally on the LED matrix. The readings can also be sent to a computer through serial communication, where a locally hosted web dashboard can display the information.
-
-The project combines basic electronics, sensor interfacing, Arduino programming, serial communication, web development, and AI-assisted data interpretation.
+An AI model can also be connected through OpenRouter to analyze the sensor readings and provide a more understandable interpretation of the environment.
 
 ---
 
 ## Features
 
-- 🌡️ Temperature monitoring using DHT22
-- 💧 Relative humidity monitoring using DHT22
-- 🧪 MQ-135 gas sensor monitoring
-- 📊 Displays sensor readings on a MAX7219 LED matrix
-- 💻 Local web-based monitoring dashboard
-- 🔌 Arduino Uno based system
-- 📡 Serial communication between Arduino and computer
-- 🤖 Optional AI-assisted interpretation through OpenRouter
-- 📦 Simple and low-cost hardware setup
-- 🛠️ Designed as an educational electronics and IoT-style project
+- 🌡️ **Temperature monitoring**
+- 💧 **Humidity monitoring**
+- 🧪 **MQ-135 gas sensor readings**
+- 📊 **Gas sensor values displayed individually**
+- 🔢 **MAX7219 LED matrix display**
+- 🖥️ **Custom local web dashboard**
+- 🤖 **AI-assisted sensor interpretation**
+- 🔌 **Arduino UNO based system**
+- 📡 **Serial communication between Arduino and computer**
+- 💾 **Simple and low-cost hardware**
+- 🧩 **Modular sensor-based design**
 
 ---
 
 ## Hardware Used
 
-| Component | Purpose |
-|---|---|
-| Arduino Uno | Main microcontroller |
-| DHT22 | Temperature and humidity measurement |
-| MQ-135 | Gas sensing |
-| MAX7219 8×8 LED Matrix | Displays sensor information |
-| Breadboard | Circuit prototyping |
-| Jumper Wires | Electrical connections |
-| USB Cable | Arduino power and serial communication |
+- Arduino UNO
+- DHT22 Temperature & Humidity Sensor
+- MQ-135 Gas Sensor
+- MAX7219 8×8 LED Matrix Display
+- Breadboard
+- Jumper Wires
+- USB Cable
+- Computer for the local dashboard and AI integration
 
 ---
 
-## Gas Sensor
+## Software Used
 
-The MQ-135 is a general-purpose gas sensor commonly used for detecting changes associated with several gases and air contaminants.
+- Arduino IDE
+- C++ / Arduino
+- HTML
+- CSS
+- JavaScript
+- Local server
+- OpenRouter API
+- AI model through OpenRouter
 
-Depending on the sensor configuration and calibration, it can respond to gases such as:
+---
+
+## Sensors
+
+### DHT22
+
+The DHT22 is used to measure:
+
+- Temperature
+- Relative Humidity
+
+The readings are periodically collected by the Arduino and sent to the connected system.
+
+### MQ-135
+
+The MQ-135 is a general-purpose gas sensor commonly used for detecting changes in the concentration of several gases.
+
+Depending on the sensor's configuration and calibration, it can respond to gases including:
 
 - Ammonia (NH₃)
 - Nitrogen oxides (NOx)
@@ -64,43 +84,48 @@ Depending on the sensor configuration and calibration, it can respond to gases s
 - Smoke
 - Carbon dioxide (CO₂)
 
-The MQ-135 provides an analog sensor output. The value produced by the sensor is affected by the concentration of gases as well as environmental conditions.
+> **Note:** The MQ-135 is not a laboratory-grade gas analyzer. Its raw analog output is affected by sensor calibration, temperature, humidity, warm-up time, and other environmental factors. The project therefore treats the MQ-135 output primarily as a gas-response reading rather than an exact concentration measurement.
 
-**Important:** The raw MQ-135 analog value is not directly equivalent to a precise gas concentration in ppm. Proper calibration and gas-specific characterization are required for accurate quantitative measurements.
+---
+
+## Display
+
+A **MAX7219 8×8 LED matrix** is used as the local display.
+
+The matrix can display sensor information directly from the Arduino, allowing basic readings to be viewed without opening the web dashboard.
 
 ---
 
 ## System Architecture
 
 ```text
-              ┌────────────────────┐
-              │    DHT22 Sensor    │
-              │ Temperature/Humid. │
-              └─────────┬──────────┘
-                        │
-                        │
-              ┌─────────▼──────────┐
-              │                    │
-              │    Arduino Uno     │
-              │                    │
-              └──────┬───────┬─────┘
-                     │       │
-             ┌───────┘       └─────────┐
-             │                         │
-      ┌──────▼──────┐           ┌──────▼──────┐
-      │   MQ-135    │           │   MAX7219    │
-      │ Gas Sensor  │           │  LED Matrix  │
-      └─────────────┘           └──────────────┘
-                     │
-                     │ USB / Serial
-                     ▼
-              ┌────────────────┐
-              │ Local Computer │
-              │ Web Dashboard  │
-              └───────┬────────┘
-                      │
-                      ▼
-              ┌────────────────┐
-              │ Optional AI    │
-              │ Interpretation │
-              └────────────────┘
+                ┌──────────────────────┐
+                │      Arduino UNO     │
+                └──────────┬───────────┘
+                           │
+             ┌─────────────┼─────────────┐
+             │             │             │
+             ▼             ▼             ▼
+          DHT22         MQ-135       MAX7219
+       Temp/Humidity    Gas Sensor    LED Matrix
+             │             │
+             └──────┬──────┘
+                    │
+                    ▼
+              Serial Data
+                    │
+                    ▼
+          ┌───────────────────┐
+          │   Local Server    │
+          └─────────┬─────────┘
+                    │
+                    ▼
+          ┌───────────────────┐
+          │  Web Dashboard    │
+          └─────────┬─────────┘
+                    │
+                    ▼
+          ┌───────────────────┐
+          │ AI Interpretation │
+          │   OpenRouter      │
+          └───────────────────┘
