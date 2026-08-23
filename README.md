@@ -136,14 +136,6 @@ The wiring is kept exposed so that the individual components and connections can
   <img src="docs/images/Model%20with%20a%20matrix%20display.jpg.jpeg" alt="Mini Room Monitor with matrix display" width="500">
 </p>
 
-The MAX7219 matrix provides a physical visual output for the monitoring system.
-
-<p align="center">
-  <img src="docs/images/Model%20working%20taking%20readings.jpeg.jpeg" alt="Mini Room Monitor taking sensor readings" width="500">
-</p>
-
-The working prototype reads the connected sensors while the Arduino is powered through USB.
-
 ---
 
 ## Physical Display
