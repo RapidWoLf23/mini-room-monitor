@@ -562,10 +562,10 @@ mini-room-monitor/
 │
 ├── docs/
 │   └── images/
-│       ├── Hardware Front.jpg.jpeg
-│       ├── Model with a matrix display.jpg.jpeg
-│       ├── Model working taking readings.jpeg.jpeg
-│       └── Prototype Dashboard.jpg.jpeg
+│       ├── Hardware%20Front.jpg.jpeg.jpeg
+│       ├── Model%20with%20a%20matrix%20display.jpg.jpeg.jpeg
+│       ├── Model%20working%20taking%20readings.jpeg.jpeg.jpeg
+│       └── Prototype%20Dashboard.jpg.jpeg.jpeg
 │
 ├── LICENSE
 └── README.md
